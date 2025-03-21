@@ -15,7 +15,7 @@ This Docker image provides a pre-configured Xfce desktop environment accessible 
 ---
 
 ## Ports Exposed
-- **5900**: VNC server port.
+- **5901**: VNC server port.
 
 ---
 
