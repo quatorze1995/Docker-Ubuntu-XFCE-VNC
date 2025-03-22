@@ -37,5 +37,8 @@ pkill -f "Xvnc" || echo "No existing VNC processes found."
 echo "Starting VNC server on display :1 with geometry $VNC_RESOLUTION and 24-bit depth..."
 vncserver :1 -geometry "$VNC_RESOLUTION" -depth 24
 
+echo "Starting noVNC on port 6080..."
+/opt/noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 6080 &
+
 echo "Initialization complete. Container is now ready."
 tail -f /dev/null
