@@ -1,52 +1,35 @@
-#!/bin/bash
+# Use Ubuntu 24 as the base image
+FROM ubuntu:24.04
 
-# Enable debug mode for detailed output (optional)
-set -x
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y \
+	xfce4 xfce4-appfinder xfce4-appmenu-plugin xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-dev-tools xfce4-dict xfce4-diskperf-plugin xfce4-eyes-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-goodies xfce4-helpers xfce4-indicator-plugin xfce4-mailwatch-plugin xfce4-mount-plugin xfce4-mpc-plugin xfce4-netload-plugin xfce4-notes xfce4-notes-plugin xfce4-notifyd xfce4-panel xfce4-panel-profiles xfce4-places-plugin xfce4-power-manager xfce4-power-manager-data xfce4-power-manager-plugins xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-sensors-plugin xfce4-session xfce4-settings xfce4-smartbookmark-plugin xfce4-sntray-plugin xfce4-sntray-plugin-common xfce4-systemload-plugin xfce4-taskmanager xfce4-terminal xfce4-time-out-plugin xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-windowck-plugin xfce4-xkb-plugin \
+	tightvncserver xfonts-base xfonts-75dpi xfonts-100dpi dbus-x11 \
+	sudo util-linux iproute2 net-tools git curl wget nano gdebi gnupg dialog htop uuid-runtime seahorse
 
-echo "Starting container initialization..." | tee -a /var/log/container.log
+# Clean up unnecessary packages and cache to reduce image size
+RUN apt-get autoclean && apt-get autoremove -y && apt-get autopurge -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Default password for root
-VNC_PASSWORD=${VNC_PASSWORD:-"password"}
-export USER=root
+RUN echo "*customization: -color" > /root/.Xresources
 
-echo "Password (truncated to 8 characters): $VNC_PASSWORD" | tee -a /var/log/container.log
+# Set up TightVNC configuration
+RUN mkdir -p /root/.vnc
 
-# Default resolution
-VNC_RESOLUTION=${RESOLUTION:-"1600x900"}
+# Create .Xauthority for root and ensure correct permissions
+RUN touch /root/.Xauthority && chmod 600 /root/.Xauthority
+	
+RUN git clone https://github.com/novnc/noVNC /opt/noVNC
+RUN git clone https://github.com/novnc/websockify /opt/noVNC/utils/websockify
+RUN chmod +x /opt/noVNC/utils/novnc_proxy
+RUN cp /opt/noVNC/vnc.html /opt/noVNC/index.html
 
-# Ensure .Xauthority and .Xresources are set for root
-if [ ! -f /root/.Xresources ]; then
-    echo "*customization: -color" > /root/.Xresources
-    echo "Created default /root/.Xresources" | tee -a /var/log/container.log
-fi
+# Expose the VNC port
+EXPOSE 5901 6080
 
-touch /root/.Xauthority
-chmod 600 /root/.Xauthority
-echo "Created .Xauthority for root at /root/.Xauthority" | tee -a /var/log/container.log
+# Copy the entrypoint script
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Update VNC password for root
-mkdir -p /root/.vnc
-echo -e "$VNC_PASSWORD\n$VNC_PASSWORD\n" | vncpasswd -f > /root/.vnc/passwd
-chmod 600 /root/.vnc/passwd
-echo "VNC password updated and saved in /root/.vnc/passwd" | tee -a /var/log/container.log
-
-# Create xstartup for root
-cat << EOF > /root/.vnc/xstartup
-#!/bin/sh
-xrdb $HOME/.Xresources
-startxfce4 &
-EOF
-chmod +x /root/.vnc/xstartup
-echo "Configured xstartup file for root at /root/.vnc/xstartup" | tee -a /var/log/container.log
-
-# Cleanup any existing VNC/X server processes
-pkill -f "Xvnc" || true
-
-# Start VNC server with a specific display and resolution
-echo "Starting the VNC server on display :1 with resolution $VNC_RESOLUTION..." | tee -a /var/log/container.log
-vncserver :1 -geometry "$VNC_RESOLUTION" -depth 24 >> /var/log/container.log 2>&1
-
-echo "Initialization complete. VNC server running." | tee -a /var/log/container.log
-
-# Keep the container running
-tail -f /var/log/container.log
+# Set the default command
+CMD ["/usr/local/bin/entrypoint.sh"]
