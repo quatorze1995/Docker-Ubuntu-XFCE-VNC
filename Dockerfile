@@ -8,10 +8,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN echo 'keyboard-configuration keyboard-configuration/layoutcode select us' | debconf-set-selections
 
 # Install packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -y && apt-get install -y \
     xfce4 xfce4-appfinder xfce4-appmenu-plugin xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-dev-tools xfce4-dict xfce4-diskperf-plugin xfce4-eyes-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-goodies xfce4-helpers xfce4-indicator-plugin xfce4-mailwatch-plugin xfce4-mount-plugin xfce4-mpc-plugin xfce4-netload-plugin xfce4-notes xfce4-notes-plugin xfce4-notifyd xfce4-panel xfce4-panel-profiles xfce4-places-plugin xfce4-power-manager xfce4-power-manager-data xfce4-power-manager-plugins xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-sensors-plugin xfce4-session xfce4-settings xfce4-smartbookmark-plugin xfce4-sntray-plugin xfce4-sntray-plugin-common xfce4-systemload-plugin xfce4-taskmanager xfce4-terminal xfce4-time-out-plugin xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-windowck-plugin xfce4-xkb-plugin \
     tightvncserver xfonts-base xfonts-75dpi xfonts-100dpi dbus-x11 \
-    sudo util-linux iproute2 net-tools git curl wget nano gdebi gnupg dialog htop uutil-linux uuid-runtime seahorse openssh-server
+    sudo util-linux iproute2 net-tools git curl wget nano gdebi gnupg dialog htop util-linux uuid-runtime seahorse openssh-server
 
 RUN apt-get install -y \
     ca-certificates fonts-liberation xdg-utils \
@@ -29,28 +29,6 @@ RUN apt-get install -y \
     libxcomposite1 libxdamage1 libxext6 libxfixes3 libxrandr2 \
     libxcb-util1 libxdmcp6 libbsd0
 
-# Set up X resources for customization
-RUN echo "*customization: -color" > /root/.Xresources
-
-# Set up TightVNC configuration
-RUN mkdir -p /root/.vnc
-
-# Create .Xauthority for root and ensure correct permissions
-RUN touch /root/.Xauthority && chmod 600 /root/.Xauthority
-
-# Clone noVNC for browser-based VNC access
-RUN git clone https://github.com/novnc/noVNC /opt/noVNC && \
-    chmod +x /opt/noVNC/utils/novnc_proxy && \
-    cp /opt/noVNC/vnc.html /opt/noVNC/index.html
-RUN git clone https://github.com/novnc/websockify /opt/noVNC/utils/websockify
-
-# Move OpenSSH Server to 22222
-RUN sed -i 's/#Port 22/Port 22222/' /etc/ssh/sshd_config && \
-    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
-    echo "ListenAddress 0.0.0.0" >> /etc/ssh/sshd_config && \
-    echo "ListenAddress ::" >> /etc/ssh/sshd_config && \
-    mkdir -p /var/run/sshd
-
 # Download and install the Google Chrome from the official source
 RUN wget -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     gdebi --n /tmp/google-chrome-stable_current_amd64.deb && \
@@ -65,6 +43,41 @@ RUN wget -O /tmp/wipter-app-amd64.deb https://provider-assets.wipter.com/latest/
 RUN wget -O /tmp/peer2profit_0.48_amd64.deb https://updates.peer2profit.app/peer2profit_0.48_amd64.deb && \
     gdebi --n /tmp/peer2profit_0.48_amd64.deb && \
     rm /tmp/peer2profit_0.48_amd64.deb
+
+# Clone noVNC for browser-based VNC access
+RUN git clone https://github.com/novnc/noVNC /opt/noVNC && \
+    chmod +x /opt/noVNC/utils/novnc_proxy && \
+    cp /opt/noVNC/vnc.html /opt/noVNC/index.html
+RUN git clone https://github.com/novnc/websockify /opt/noVNC/utils/websockify
+
+# Set up X resources for customization
+RUN echo "*customization: -color" > /root/.Xresources
+
+# Set up TightVNC configuration
+RUN mkdir -p /root/.vnc
+
+# Create .Xauthority for root and ensure correct permissions
+RUN touch /root/.Xauthority && chmod 600 /root/.Xauthority
+
+# Move OpenSSH Server to 22222
+RUN sed -i 's/#Port 22/Port 22222/' /etc/ssh/sshd_config && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    echo "ListenAddress 0.0.0.0" >> /etc/ssh/sshd_config && \
+    echo "ListenAddress ::" >> /etc/ssh/sshd_config && \
+    mkdir -p /var/run/sshd
+
+# Create a shortcut for Google Chrome on the Desktop
+RUN mkdir -p /root/Desktop && \
+    echo '[Desktop Entry]' > /root/Desktop/google-chrome.desktop && \
+    echo 'Version=1.0' >> /root/Desktop/google-chrome.desktop && \
+    echo 'Name=Google Chrome' >> /root/Desktop/google-chrome.desktop && \
+    echo 'Comment=Access the Internet' >> /root/Desktop/google-chrome.desktop && \
+    echo 'Exec=/usr/bin/google-chrome-stable --no-sandbox %U' >> /root/Desktop/google-chrome.desktop && \
+    echo 'Icon=google-chrome' >> /root/Desktop/google-chrome.desktop && \
+    echo 'Terminal=false' >> /root/Desktop/google-chrome.desktop && \
+    echo 'Type=Application' >> /root/Desktop/google-chrome.desktop && \
+    echo 'Categories=Network;WebBrowser;' >> /root/Desktop/google-chrome.desktop && \
+    chmod +x /root/Desktop/google-chrome.desktop
 
 # Clean up unnecessary packages and cache to reduce image size
 RUN apt-get autoclean && apt-get autoremove -y && apt-get autopurge -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
