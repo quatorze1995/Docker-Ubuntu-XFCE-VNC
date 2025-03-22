@@ -7,7 +7,9 @@
  - **VNC Server** : TightVNC for secure remote desktop access.
  - **Customizable Settings** :
    - **Resolution** : Easily adjustable VNC geometry (default: 1600x900).
-   - **Ports** :  Default 5901 TightVNC server port.
+   - **Default Ports** :  
+     - **VNC** : 5901
+     - **noVNC** : 6080
    - Password-protected access for secure sessions.
    - Includes essential fonts and utilities for enhanced graphical application compatibility.
  - **Environment Variables** :
