@@ -15,21 +15,18 @@ RUN apt-get update -y && apt-get install -y \
 
 RUN apt-get install -y \
     ca-certificates fonts-liberation xdg-utils \
-    libasound2t64 libatk-bridge2.0-0 libatk1.0-0 \
-    libatspi2.0-0 libc6 libcairo2 libcups2 \
-    libcurl4 libdbus-1-3 libexpat1 libgbm1 \
-    libglib2.0-0 libgtk-3-0 libgtk-3-bin libgtk-4-1 \
-    libnspr4 libnss3 libpango-1.0-0 libudev1 libuuid1 \
-    libvulkan1 libx11-6 libxau6 libxcb-glx0 libxcb1 \
-    libx11-xcb1 libxcb-icccm4 libxcb-image0 libxcb-shm0 \
-    libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 \
-    libxcb-sync1 libxcb-xfixes0 libxcb-render0 libxcb-shape0 \
-    libxcb-xinerama0 libxcb-xkb1 libxkbcommon-x11-0 libxkbcommon0 \
-    libgl1 libappindicator3-1 libnotify4 libnotify-bin \
-    libxcomposite1 libxdamage1 libxext6 libxfixes3 libxrandr2 \
-    libxcb-util1 libxdmcp6 libbsd0 \
-    libayatana-common0 libayatana-indicator3-7 \
-    libwebkit2gtk-4.1-0 libwebkitgtk-6.0-4 libgtk-3-0t64 libgtk-3-bin libgtk-3-common libgtk-4-1 libgtk-4-bin libgtk-4-common
+    libappindicator3-1 libasound2t64 libatk1.0-0 libatk-bridge2.0-0 libatspi2.0-0 libayatana-common0 libayatana-indicator3-7 \
+    libbsd0 \
+    libc6 libcairo2 libcups2 libcurl4 \
+    libdbus-1-3 \
+    libexpat1 \
+    libgbm1 libgl1 libglib2.0-0 libgtk-3-0 libgtk-3-0t64 libgtk-3-bin libgtk-3-bin libgtk-3-common libgtk-4-1 libgtk-4-1 libgtk-4-bin libgtk-4-common \
+    libnotify4 libnotify-bin libnspr4 libnss3 \
+    libpango-1.0-0 \
+    libudev1 libuuid1 \
+    libvulkan1 \
+    libwebkit2gtk-4.1-0 libwebkitgtk-6.0-4 \
+    libx11-6 libx11-xcb1 libxau6 libxcb1 libxcb-glx0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 libxcb-sync1 libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 libxcomposite1 libxdamage1 libxdmcp6 libxext6 libxfixes3 libxkbcommon0 libxkbcommon-x11-0 libxrandr2
 
 # Download and install the Google Chrome from the official source
 RUN wget -O /tmp/google-chrome-stable.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
