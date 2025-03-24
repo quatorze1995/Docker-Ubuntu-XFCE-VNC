@@ -28,7 +28,7 @@ RUN apt-get install -y \
     libgl1 libappindicator3-1 libnotify4 libnotify-bin \
     libxcomposite1 libxdamage1 libxext6 libxfixes3 libxrandr2 \
     libxcb-util1 libxdmcp6 libbsd0 \
-    libayatana-appindicator3-1 libayatana-common0 libayatana-indicator3-7 \
+    libayatana-common0 libayatana-indicator3-7 \
     libwebkit2gtk-4.1-0 libwebkitgtk-6.0-4 libgtk-3-0t64 libgtk-3-bin libgtk-3-common libgtk-4-1 libgtk-4-bin libgtk-4-common
 
 # Download and install the Google Chrome from the official source
