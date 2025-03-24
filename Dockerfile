@@ -52,10 +52,8 @@ RUN wget -O /tmp/UpRock-Mining.deb https://edge.uprock.com/v1/app-download/UpRoc
     rm /tmp/UpRock-Mining.deb
 
 # Block similar named Grass App and Install the Grass application from the official source
-RUN apt-get update && \
-    apt-mark hold \
-        grass-core grass-dev-doc grass-dev grass-doc grass-gui grass && \
-    apt-get upgrade -y
+RUN apt-mark hold \
+    grass-core grass-dev-doc grass-dev grass-doc grass-gui grass
 
 RUN wget -O /tmp/Grass.deb https://files.getgrass.io/file/grass-extension-upgrades/ubuntu-22.04/Grass_5.2.2_amd64.deb && \
     gdebi --n /tmp/Grass.deb && \
