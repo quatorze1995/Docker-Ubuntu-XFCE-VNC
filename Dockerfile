@@ -27,22 +27,34 @@ RUN apt-get install -y \
     libxcb-xinerama0 libxcb-xkb1 libxkbcommon-x11-0 libxkbcommon0 \
     libgl1 libappindicator3-1 libnotify4 libnotify-bin \
     libxcomposite1 libxdamage1 libxext6 libxfixes3 libxrandr2 \
-    libxcb-util1 libxdmcp6 libbsd0
+    libxcb-util1 libxdmcp6 libbsd0 \
+    libayatana-appindicator3-1 libayatana-common0 libayatana-indicator3-7 \
+    libwebkit2gtk-4.1-0 libwebkitgtk-6.0-4 libgtk-3-0t64 libgtk-3-bin libgtk-3-common libgtk-4-1 libgtk-4-bin libgtk-4-common
 
 # Download and install the Google Chrome from the official source
-RUN wget -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    gdebi --n /tmp/google-chrome-stable_current_amd64.deb && \
-    rm /tmp/google-chrome-stable_current_amd64.deb
+RUN wget -O /tmp/google-chrome-stable.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    gdebi --n /tmp/google-chrome-stable.deb && \
+    rm /tmp/google-chrome-stable.deb
 
 # Download and install the Wipter application from the official source
-RUN wget -O /tmp/wipter-app-amd64.deb https://provider-assets.wipter.com/latest/linux/x64/wipter-app-amd64.deb && \
-    gdebi --n /tmp/wipter-app-amd64.deb && \
-    rm /tmp/wipter-app-amd64.deb
+RUN wget -O /tmp/wipter.deb https://provider-assets.wipter.com/latest/linux/x64/wipter-app-amd64.deb && \
+    gdebi --n /tmp/wipter.deb && \
+    rm /tmp/wipter.deb
 
 # Download and install the Peer2Profit application from the official source
-RUN wget -O /tmp/peer2profit_0.48_amd64.deb https://updates.peer2profit.app/peer2profit_0.48_amd64.deb && \
-    gdebi --n /tmp/peer2profit_0.48_amd64.deb && \
-    rm /tmp/peer2profit_0.48_amd64.deb
+RUN wget -O /tmp/peer2profit.deb https://updates.peer2profit.app/peer2profit_0.48_amd64.deb && \
+    gdebi --n /tmp/peer2profit.deb && \
+    rm /tmp/peer2profit.deb
+
+# Block similar named Grass App and Install the Grass application from the official source
+RUN apt-get update && \
+    apt-mark hold \
+        grass-core grass-dev-doc grass-dev grass-doc grass-gui grass && \
+    apt-get upgrade -y
+
+RUN wget -O /tmp/Grass.deb https://files.getgrass.io/file/grass-extension-upgrades/ubuntu-22.04/Grass_5.2.2_amd64.deb && \
+    gdebi --n /tmp/Grass.deb && \
+    rm /tmp/Grass.deb
 
 # Clone noVNC for browser-based VNC access
 RUN git clone https://github.com/novnc/noVNC /opt/noVNC && \
