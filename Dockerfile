@@ -46,6 +46,11 @@ RUN wget -O /tmp/peer2profit.deb https://updates.peer2profit.app/peer2profit_0.4
     gdebi --n /tmp/peer2profit.deb && \
     rm /tmp/peer2profit.deb
 
+# Download and install the Peer2Profit application from the official source
+RUN wget -O /tmp/UpRock-Mining.deb https://edge.uprock.com/v1/app-download/UpRock-Mining-v0.0.8.deb && \
+    gdebi --n /tmp/UpRock-Mining.deb && \
+    rm /tmp/UpRock-Mining.deb
+
 # Block similar named Grass App and Install the Grass application from the official source
 RUN apt-get update && \
     apt-mark hold \
