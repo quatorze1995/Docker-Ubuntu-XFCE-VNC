@@ -4,7 +4,7 @@ echo "Starting container initialization..."
 
 echo " "
 echo "Setting up VNC with Resolution: $VNC_RESOLUTION and Password: $VNC_PASSWORD..."
-VNC_RESOLUTION=${RESOLUTION:-"4800x900"}
+VNC_RESOLUTION=${RESOLUTION:-"1600x900"}
 VNC_PASSWORD=${VNC_PASSWORD:-"password"}
 export USER=root
 
