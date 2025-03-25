@@ -110,7 +110,7 @@ RUN chmod +x /root/Desktop/wipter-app.desktop
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/peer2profit.desktop
 [Desktop Entry]
-Encoding=UTF=8
+Encoding=UTF-8
 Name=Peer2Profit
 Comment=Peer2Profit
 Exec=/usr/bin/peer2profit
