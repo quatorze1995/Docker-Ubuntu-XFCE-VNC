@@ -96,7 +96,6 @@ RUN chmod +x /root/Desktop/google-chrome.desktop
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/wipter-app.desktop
 [Desktop Entry]
-Version=1.0
 Name=Wipter
 Comment=Wipter
 Exec=/opt/Wipter/wipter-app %U
@@ -107,6 +106,50 @@ Categories=Network;
 StartupWMClass=Wipter
 EOF
 RUN chmod +x /root/Desktop/wipter-app.desktop
+
+RUN mkdir -p /root/Desktop && \
+    cat <<EOF > /root/Desktop/peer2profit.desktop
+[Desktop Entry]
+Encoding=UTF=8
+Name=Peer2Profit
+Comment=Peer2Profit
+Exec=/usr/bin/peer2profit
+Icon=peer2profit
+Terminal=true
+Type=Application
+Categories=Network;
+StartupNotify=true;
+EOF
+RUN chmod +x /root/Desktop/peer2profit.desktop
+
+RUN mkdir -p /root/Desktop && \
+    cat <<EOF > /root/Desktop/uprock-mining.desktop
+[Desktop Entry]
+Name=UpRock Mining
+Comment=UpRock Mining
+Exec=uprock-mining
+Icon=uprock-mining
+Terminal=true
+Type=Application
+Categories=Network;
+StartupNotify=true;
+EOF
+RUN chmod +x /root/Desktop/uprock-mining.desktop
+
+RUN mkdir -p /root/Desktop && \
+    cat <<EOF > /root/Desktop/grass.desktop
+[Desktop Entry]
+Name=Grass
+Comment=Grass
+Exec=grass
+Icon=grass
+Terminal=true
+Type=Application
+Categories=Network;
+StartupNotify=true;
+MimeType=x-scheme-handler/grass
+EOF
+RUN chmod +x /root/Desktop/grass.desktop
 
 
 # Clean up unnecessary packages and cache to reduce image size
