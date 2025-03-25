@@ -78,7 +78,7 @@ RUN sed -i 's/#Port 22/Port 22222/' /etc/ssh/sshd_config && \
     echo "ListenAddress ::" >> /etc/ssh/sshd_config && \
     mkdir -p /var/run/sshd
 
-# Create a shortcut for Google Chrome on the Desktop
+# Create a shortcuts
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/google-chrome.desktop
 [Desktop Entry]
@@ -92,6 +92,22 @@ Type=Application
 Categories=Network;WebBrowser;
 EOF
 RUN chmod +x /root/Desktop/google-chrome.desktop
+
+RUN mkdir -p /root/Desktop && \
+    cat <<EOF > /root/Desktop/wipter-app.desktop
+[Desktop Entry]
+Version=1.0
+Name=Wipter
+Comment=Wipter
+Exec=/opt/Wipter/wipter-app %U
+Icon=wipter-app
+Terminal=true
+Type=Application
+Categories=Network;
+StartupWMClass=Wipter
+EOF
+RUN chmod +x /root/Desktop/wipter-app.desktop
+
 
 # Clean up unnecessary packages and cache to reduce image size
 RUN apt-get autoclean && apt-get autoremove -y && apt-get autopurge -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
