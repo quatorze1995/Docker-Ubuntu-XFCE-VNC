@@ -80,15 +80,17 @@ RUN sed -i 's/#Port 22/Port 22222/' /etc/ssh/sshd_config && \
 
 # Create a shortcut for Google Chrome on the Desktop
 RUN mkdir -p /root/Desktop && \
-    echo '[Desktop Entry]' > /root/Desktop/google-chrome.desktop && \
-    echo 'Version=1.0' >> /root/Desktop/google-chrome.desktop && \
-    echo 'Name=Google Chrome' >> /root/Desktop/google-chrome.desktop && \
-    echo 'Comment=Access the Internet' >> /root/Desktop/google-chrome.desktop && \
-    echo 'Exec=/usr/bin/google-chrome-stable --no-sandbox %U' >> /root/Desktop/google-chrome.desktop && \
-    echo 'Icon=google-chrome' >> /root/Desktop/google-chrome.desktop && \
-    echo 'Terminal=false' >> /root/Desktop/google-chrome.desktop && \
-    echo 'Type=Application' >> /root/Desktop/google-chrome.desktop && \
-    echo 'Categories=Network;WebBrowser;' >> /root/Desktop/google-chrome.desktop && \
+    cat <<EOF > /root/Desktop/google-chrome.desktop
+[Desktop Entry]
+Version=1.0
+Name=Google Chrome
+Comment=Access the Internet
+Exec=/usr/bin/google-chrome-stable --no-sandbox --window-size=1600,900 %U
+Icon=google-chrome
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+EOF
     chmod +x /root/Desktop/google-chrome.desktop
 
 # Clean up unnecessary packages and cache to reduce image size
