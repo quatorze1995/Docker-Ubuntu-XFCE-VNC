@@ -77,6 +77,22 @@ echo " "
 echo "Stopping any existing VNC server processes..."
 pkill -f "Xvnc" || echo "No existing VNC processes found."
 
+echo "Stopping any existing VNC server processes..."
+pkill -f "Xvnc" || echo "No existing VNC processes found."
+
+echo " "
+echo "Checking for and removing stale VNC lock and temporary files..."
+if [ -f /tmp/.X1-lock ]; then
+    echo " "
+    echo "Found stale /tmp/.X1-lock file. Removing it..."
+    rm -f /tmp/.X1-lock
+fi
+if [ -d /tmp/.X11-unix ]; then
+    echo " "
+    echo "Removing stale /tmp/.X11-unix directory..."
+    rm -rf /tmp/.X11-unix
+fi
+
 echo " "
 echo "Starting VNC server on display :1 with geometry $VNC_RESOLUTION and 24-bit depth..."
 vncserver :1 -geometry "$VNC_RESOLUTION" -depth 24
