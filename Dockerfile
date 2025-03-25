@@ -91,7 +91,7 @@ Terminal=false
 Type=Application
 Categories=Network;WebBrowser;
 EOF
-    chmod +x /root/Desktop/google-chrome.desktop
+RUN chmod +x /root/Desktop/google-chrome.desktop
 
 # Clean up unnecessary packages and cache to reduce image size
 RUN apt-get autoclean && apt-get autoremove -y && apt-get autopurge -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
