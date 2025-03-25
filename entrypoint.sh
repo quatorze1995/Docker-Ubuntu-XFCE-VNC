@@ -4,7 +4,7 @@ echo "Starting container initialization..."
 
 echo " "
 echo "Setting up VNC with Resolution: $VNC_RESOLUTION and Password: $VNC_PASSWORD..."
-VNC_RESOLUTION=${RESOLUTION:-"1600x900"}
+VNC_RESOLUTION=${RESOLUTION:-"4800x900"}
 VNC_PASSWORD=${VNC_PASSWORD:-"password"}
 export USER=root
 
@@ -96,8 +96,6 @@ fi
 echo " "
 echo "Starting VNC server on display :1 with geometry $VNC_RESOLUTION and 24-bit depth..."
 vncserver :1 -geometry "$VNC_RESOLUTION" -depth 24
-vncserver :2 -geometry "$VNC_RESOLUTION" -depth 24
-vncserver :3 -geometry "$VNC_RESOLUTION" -depth 24
 
 echo " "
 echo "Starting noVNC on port 6080..."
