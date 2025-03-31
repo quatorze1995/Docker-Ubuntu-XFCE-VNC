@@ -91,8 +91,8 @@ Terminal=false
 Type=Application
 Categories=Network;WebBrowser;
 EOF
-RUN chmod +x /root/Desktop/google-chrome.desktop
-RUN gio set /root/Desktop/google-chrome.desktop "metadata::trusted" true
+RUN chmod a+x /root/Desktop/google-chrome.desktop
+RUN dbus-launch gio set /root/Desktop/google-chrome.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/wipter-app.desktop
@@ -106,8 +106,8 @@ Type=Application
 Categories=Network;
 StartupWMClass=Wipter
 EOF
-RUN chmod +x /root/Desktop/wipter-app.desktop
-RUN gio set /root/Desktop/wipter-app.desktop "metadata::trusted" true
+RUN chmod a+x /root/Desktop/wipter-app.desktop
+RUN dbus-launch gio set /root/Desktop/wipter-app.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/peer2profit.desktop
@@ -122,8 +122,8 @@ Type=Application
 Categories=Network;
 StartupNotify=true;
 EOF
-RUN chmod +x /root/Desktop/peer2profit.desktop
-RUN gio set /root/Desktop/peer2profit.desktop "metadata::trusted" true
+RUN chmod a+x /root/Desktop/peer2profit.desktop
+RUN dbus-launch gio set /root/Desktop/peer2profit.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/uprock-mining.desktop
@@ -137,7 +137,7 @@ Type=Application
 Categories=Network;
 StartupNotify=true;
 EOF
-RUN chmod +x /root/Desktop/uprock-mining.desktop
+RUN chmod a+x /root/Desktop/uprock-mining.desktop
 RUN gio set /root/Desktop/uprock-mining.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
@@ -153,8 +153,8 @@ Categories=Network;
 StartupNotify=true;
 MimeType=x-scheme-handler/grass
 EOF
-RUN chmod +x /root/Desktop/grass.desktop
-RUN gio set /root/Desktop/grass.desktop "metadata::trusted" true
+RUN chmod a+x /root/Desktop/grass.desktop
+RUN dbus-launch gio set /root/Desktop/grass.desktop "metadata::trusted" true
 
 # Clean up unnecessary packages and cache to reduce image size
 RUN apt-get autoclean && apt-get autoremove -y && apt-get autopurge -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -164,7 +164,7 @@ EXPOSE 5901 6080 22222
 
 # Copy the entrypoint script
 COPY entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod a+x /usr/local/bin/entrypoint.sh
 
 # Set the default command
 CMD ["/usr/local/bin/entrypoint.sh"]
