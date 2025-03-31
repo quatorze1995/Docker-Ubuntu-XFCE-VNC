@@ -138,7 +138,7 @@ Categories=Network;
 StartupNotify=true;
 EOF
 RUN chmod a+x /root/Desktop/uprock-mining.desktop
-RUN gio set /root/Desktop/uprock-mining.desktop "metadata::trusted" true
+RUN dbus-launch gio set /root/Desktop/uprock-mining.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/grass.desktop
