@@ -67,6 +67,7 @@ RUN echo "*customization: -color" > /root/.Xresources
 
 # Set up TightVNC configuration
 RUN mkdir -p /root/.vnc
+RUN mkdir -p /root/.local/share
 
 # Create .Xauthority for root and ensure correct permissions
 RUN touch /root/.Xauthority && chmod 600 /root/.Xauthority
