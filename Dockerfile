@@ -28,6 +28,14 @@ RUN apt-get install -y \
     libwebkit2gtk-4.1-0 libwebkitgtk-6.0-4 \
     libx11-6 libx11-xcb1 libxau6 libxcb1 libxcb-glx0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 libxcb-sync1 libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 libxcomposite1 libxdamage1 libxdmcp6 libxext6 libxfixes3 libxkbcommon0 libxkbcommon-x11-0 libxrandr2
 
+# Create /tmp/.X11-unix and /run/dbus directories
+RUN mkdir -p /tmp/.X11-unix /run/dbus && \
+    chmod 1777 /tmp/.X11-unix && \
+    chmod 755 /run/dbus
+
+# Create directories for keyring and cache
+RUN mkdir -p /root/.local/share/keyrings /root/.cache
+
 # Download and install the Google Chrome from the official source
 RUN wget -O /tmp/google-chrome-stable.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     gdebi --n /tmp/google-chrome-stable.deb && \
