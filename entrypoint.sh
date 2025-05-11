@@ -119,30 +119,34 @@ cd /opt/Wipter/
 /opt/Wipter/wipter-app &
 
 if ! [ -f ~/.wipter-configured ]; then
-    # Wait for the wipter window to be available
-    while [[ "$(xdotool search --name Wipter| wc -l)" -lt 3 ]]; do
+    # Wait for the Wipter window to be available
+    while [[ "$(wmctrl -l | grep -i Wipter | wc -l)" -lt 1 ]]; do
         sleep 10
     done
 
-    # Handle wipter login
-    xdotool search --name Wipter | tail -n1 | xargs xdotool windowfocus
+    # Get the window ID of Wipter
+    WIPTER_WIN=$(wmctrl -l | grep -i "Wipter" | awk '{print $1}')
+
+    # Bring Wipter to the foreground
+    wmctrl -ia "$WIPTER_WIN"
     sleep 5
-    xdotool key Tab
+
+    # Simulate key presses (requires xdotool or another input tool)
+    xte "key Tab"
     sleep 3
-    xdotool key Tab
+    xte "key Tab"
     sleep 3
-    xdotool key Tab
+    xte "key Tab"
     sleep 3
-    xdotool type "$WIPTER_EMAIL"
+    xte "str $WIPTER_EMAIL"
     sleep 3
-    xdotool key Tab
+    xte "key Tab"
     sleep 3
-    xdotool type "$WIPTER_PASSWORD"
+    xte "str $WIPTER_PASSWORD"
     sleep 3
-    xdotool key Return
+    xte "key Return"
 
     touch ~/.wipter-configured
 fi
-
 
 fg %/opt/Wipter/wipter-app
