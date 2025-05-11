@@ -9,9 +9,13 @@ RUN echo 'keyboard-configuration keyboard-configuration/layoutcode select us' | 
 
 # Install packages
 RUN apt-get update -y && apt-get install -y --no-install-recommends --no-install-suggests \
-    xfce4 xfce4-goodies xfce4-whiskermenu-plugin xfce4-appfinder xfce4-helpers xfce4-notifyd xfce4-panel xfce4-panel-profiles xfce4-session xfce4-settings xfce4-taskmanager xfce4-terminal xfce4-datetime-plugin xfce4-pulseaudio-plugin xfce4-windowck-plugin \
-    tightvncserver xfonts-base xfonts-75dpi xfonts-100dpi dbus dbus-x11 tini wmctrl \
-    sudo util-linux iproute2 net-tools git curl wget nano gdebi gnupg dialog htop util-linux uuid-runtime gnome-keyring seahorse openssh-server
+    xfce4 xfce4-goodies xfce4-whiskermenu-plugin xfce4-appfinder xfce4-helpers xfce4-notifyd xfce4-panel xfce4-panel-profiles xfce4-session xfce4-settings xfce4-taskmanager xfce4-terminal xfce4-datetime-plugin xfce4-pulseaudio-plugin xfce4-windowck-plugin
+
+RUN apt-get update -y && apt-get install -y --no-install-recommends --no-install-suggests \    
+    tightvncserver xfonts-base xfonts-75dpi xfonts-100dpi dbus dbus-x11
+
+RUN apt-get update -y && apt-get install -y --no-install-recommends --no-install-suggests \
+    sudo util-linux iproute2 net-tools git curl wget nano gdebi gnupg dialog htop util-linux uuid-runtime gnome-keyring seahorse openssh-server tini wmctrl xautomation
 
 RUN apt-get install -y --no-install-recommends --no-install-suggests \
     ca-certificates fonts-liberation xdg-utils \
