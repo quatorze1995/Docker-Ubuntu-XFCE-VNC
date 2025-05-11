@@ -2,6 +2,13 @@
 echo " "
 echo "Starting container initialization..."
 
+# Start a D-Bus session
+# Unlock the GNOME Keyring daemon (non-interactively)
+# Replace 'mypassword' with a secure password or use an environment variable
+eval "$(dbus-launch --sh-syntax)"
+echo 'mypassword' | gnome-keyring-daemon --unlock --replace
+set -m
+
 echo " "
 echo "Setting up VNC with Resolution: $VNC_RESOLUTION and Password: $VNC_PASSWORD..."
 VNC_RESOLUTION=${RESOLUTION:-"1600x900"}
