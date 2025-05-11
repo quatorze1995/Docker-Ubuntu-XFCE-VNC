@@ -101,7 +101,6 @@ Type=Application
 Categories=Network;WebBrowser;
 EOF
 RUN chmod a+x /root/Desktop/google-chrome.desktop
-RUN dbus-launch gio set /root/Desktop/google-chrome.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/wipter-app.desktop
@@ -116,7 +115,6 @@ Categories=Network;
 StartupWMClass=Wipter
 EOF
 RUN chmod a+x /root/Desktop/wipter-app.desktop
-RUN dbus-launch gio set /root/Desktop/wipter-app.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/peer2profit.desktop
@@ -132,7 +130,6 @@ Categories=Network;
 StartupNotify=true;
 EOF
 RUN chmod a+x /root/Desktop/peer2profit.desktop
-RUN dbus-launch gio set /root/Desktop/peer2profit.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/uprock-mining.desktop
@@ -147,7 +144,6 @@ Categories=Network;
 StartupNotify=true;
 EOF
 RUN chmod a+x /root/Desktop/uprock-mining.desktop
-RUN dbus-launch gio set /root/Desktop/uprock-mining.desktop "metadata::trusted" true
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/grass.desktop
@@ -163,7 +159,6 @@ StartupNotify=true;
 MimeType=x-scheme-handler/grass
 EOF
 RUN chmod a+x /root/Desktop/grass.desktop
-RUN dbus-launch gio set /root/Desktop/grass.desktop "metadata::trusted" true
 
 # Clean up unnecessary packages and cache to reduce image size
 RUN apt-get autoclean && apt-get autoremove -y && apt-get autopurge -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
