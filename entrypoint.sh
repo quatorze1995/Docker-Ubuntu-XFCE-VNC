@@ -150,5 +150,3 @@ if ! [ -f ~/.wipter-configured ]; then
 
     touch ~/.wipter-configured
 fi
-
-fg %/opt/Wipter/wipter-app
