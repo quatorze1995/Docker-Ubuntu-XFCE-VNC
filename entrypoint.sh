@@ -114,24 +114,26 @@ echo "Initialization complete. Container is now ready."
 
 export DISPLAY=:1
 
+echo "Starting Peer2Profit....."
+cd /usr/bin/
+/usr/bin/peer2profit &
+sleep 3
+
 echo "Starting Wipter....."
 cd /opt/Wipter/
 /opt/Wipter/wipter-app &
+sleep 3
 
 if ! [ -f ~/.wipter-configured ]; then
-    # Wait for the Wipter window to be available
     while [[ "$(wmctrl -l | grep -i Wipter | wc -l)" -lt 1 ]]; do
         sleep 10
     done
 
-    # Get the window ID of Wipter
     WIPTER_WIN=$(wmctrl -l | grep -i "Wipter" | awk '{print $1}')
 
-    # Bring Wipter to the foreground
     wmctrl -ia "$WIPTER_WIN"
     sleep 5
 
-    # Simulate key presses (requires xdotool or another input tool)
     xte "key Tab"
     sleep 3
     xte "key Tab"
