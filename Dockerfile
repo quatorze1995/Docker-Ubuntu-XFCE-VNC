@@ -34,7 +34,7 @@ RUN wget -O /tmp/google-chrome-stable.deb https://dl.google.com/linux/direct/goo
     rm /tmp/google-chrome-stable.deb
 
 # Download and install the Wipter application from the official source
-RUN wget -O /tmp/wipter.deb https://provider-assets.wipter.com/latest/linux/x64/wipter-app-amd64.deb && \
+RUN wget -O /tmp/wipter.deb https://s3.us-west-2.amazonaws.com/provider-assets.wipter.com/latest/linux/x64/wipter-app-amd64.deb && \
     gdebi --n /tmp/wipter.deb && \
     rm /tmp/wipter.deb
 
@@ -44,7 +44,7 @@ RUN wget -O /tmp/peer2profit.deb https://updates.peer2profit.app/peer2profit_0.4
     rm /tmp/peer2profit.deb
 
 # Download and install the UpRock Mining application from the official source
-RUN wget -O /tmp/UpRock-Mining.deb https://edge.uprock.com/v1/app-download/UpRock-Mining-v0.0.9.deb && \
+RUN wget -O /tmp/UpRock-Mining.deb https://edge.uprock.com/v1/app-download/UpRock-Mining-v0.0.10.deb && \
     gdebi --n /tmp/UpRock-Mining.deb && \
     rm /tmp/UpRock-Mining.deb
 
