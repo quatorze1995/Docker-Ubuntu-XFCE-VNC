@@ -150,3 +150,6 @@ if ! [ -f ~/.wipter-configured ]; then
 
     touch ~/.wipter-configured
 fi
+
+
+tail -f /dev/null
