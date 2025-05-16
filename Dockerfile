@@ -94,7 +94,7 @@ RUN sed -i 's/#Port 22/Port 22222/' /etc/ssh/sshd_config && \
 # Create a shortcuts
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/google-chrome.desktop
-
+[Desktop Entry]
 Version=1.0
 Name=Google Chrome
 Comment=Access the Internet
