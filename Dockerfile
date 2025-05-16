@@ -94,7 +94,7 @@ RUN sed -i 's/#Port 22/Port 22222/' /etc/ssh/sshd_config && \
 # Create a shortcuts
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/google-chrome.desktop
-[Desktop Entry]
+
 Version=1.0
 Name=Google Chrome
 Comment=Access the Internet
@@ -108,7 +108,7 @@ RUN chmod a+x /root/Desktop/google-chrome.desktop
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/wipter-app.desktop
-[Desktop Entry]
+
 Name=Wipter
 Comment=Wipter
 Exec=/opt/Wipter/wipter-app %U
@@ -122,7 +122,7 @@ RUN chmod a+x /root/Desktop/wipter-app.desktop
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/peer2profit.desktop
-[Desktop Entry]
+
 Encoding=UTF-8
 Name=Peer2Profit
 Comment=Peer2Profit
@@ -137,7 +137,7 @@ RUN chmod a+x /root/Desktop/peer2profit.desktop
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/uprock-mining.desktop
-[Desktop Entry]
+
 Name=UpRock Mining
 Comment=UpRock Mining
 Exec=uprock-mining
@@ -151,7 +151,7 @@ RUN chmod a+x /root/Desktop/uprock-mining.desktop
 
 RUN mkdir -p /root/Desktop && \
     cat <<EOF > /root/Desktop/grass.desktop
-[Desktop Entry]
+
 Name=Grass
 Comment=Grass
 Exec=grass
